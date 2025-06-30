@@ -1,4 +1,4 @@
-module PositMAC #(parameter N = 32)(
+module PositMAC #(parameter N =8)(
     input [N-1:0] A,
     input [N-1:0] B,
     input [16*N-1:0] C,
@@ -120,7 +120,7 @@ endfunction
 
     assign paddedFrac = neg_sf ? {{(2*N-8){AB_sgn}}, ~AB_sgn, AB_normF, {(6*N-8){1'b0}}} : {~AB_sgn, AB_normF, {(8*N-16){1'b0}}};
 
-    RightShifter56_by_max_48_F0_uid26 #(.DATA_WIDTH(10*N-24), .SHIFT_BITS(log2(N)+3), .MAX_SHIFT(8*N-16)) Frac_RightShifter (
+    RightShifter56_by_max_48_F0_uid26 #(.N(N), .DATA_WIDTH(10*N-24), .SHIFT_BITS(log2(N)+3), .MAX_SHIFT(8*N-16)) Frac_RightShifter (
         .S(AB_sfBiased),
         .X(paddedFrac),
         .padBit(AB_sgn),
